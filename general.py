@@ -13,11 +13,8 @@ def wacc(r_d, r_e, D, E, V, tax):
     return wacc
 
 if __name__ == '__main__':
-    option_type = None  # "put" or "call"
-    S_0 = None  # Stock price at time 0
-    X = None  # Exercise price
-    u = None  # Drift coefficient, representing the stock's return
-    sigma = None  # Diffusion coefficient, representing the stock's volatility
-    r = None  # Risk-free interest rate
-    T = None  # Time
+    r_f = 0.05  # Risk-free interest rate
+    r_m = 0.11  # Return of market
+    b_p = 0.8  # Beta of return you need calculated, e.g. asset
 
+    capm(r_f, r_m, b_p)
