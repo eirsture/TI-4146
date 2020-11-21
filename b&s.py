@@ -24,7 +24,7 @@ N(d_2) = Probability of exercise
 """
 
 
-def first_determinant(stock_price, exercise_price, interest_rate, volatility, time):
+def first_determinant(stock_price, exercise_price, interest_rate, volatility, time) -> float:
     """
     d_1 = (ln(S_0 / X) + (r + 1/2 * sigma**2 ) * T) / (sigma * sqrt(T))
     """
@@ -34,7 +34,7 @@ def first_determinant(stock_price, exercise_price, interest_rate, volatility, ti
     return det
 
 
-def second_determinant(determinant1, volatility, time):
+def second_determinant(determinant1, volatility, time) -> float:
     """
     d_2 = d_1 - sigma * sqrt(T)
     """
@@ -44,11 +44,11 @@ def second_determinant(determinant1, volatility, time):
     return det
 
 
-def normal_distribution(d):
+def normal_distribution(d) -> float:
     return NormalDist().cdf(d)
 
 
-def put_option(exercise_price, interest_rate, time, stock_price, determinant1, determinant2):
+def put_option(exercise_price, interest_rate, time, stock_price, determinant1, determinant2) -> float:
     """
      O_p,0 = Xe**(−rT) *  N(−d2) − S_0 * N(−d1)
     """
@@ -57,7 +57,7 @@ def put_option(exercise_price, interest_rate, time, stock_price, determinant1, d
         -determinant2) - stock_price * normal_distribution(-determinant1)
 
 
-def call_option(exercise_price, interest_rate, time, stock_price, determinant1, determinant2):
+def call_option(exercise_price, interest_rate, time, stock_price, determinant1, determinant2) -> float:
     """
     O_c,0 = S_0 * N(d_1) - X*e^(-rT) * N(d_2)
     """
