@@ -60,12 +60,12 @@ def calculate_option_price(period, stock_values, put_or_call, exercise_price, p_
 if __name__ == '__main__':
     #  Input values:
     option_type = "call"  # "put" or "call"
-    periods = 2  # Determines the depth of the binomial tree. Most likely 1 or 2.
-    S_0 = 120  # Stock price at time 0
-    X = 120  # Exercise price
-    rate = 0.04  # Risk-free rate, 0<= x <= 1
-    up = 0.15  # Upwards probability, 0<= x <= 1
-    down = 0.13  # Downwards probability, 0<= x <= 1
+    periods = None  # Determines the depth of the binomial tree. Most likely 1 or 2.
+    S_0 = None  # Stock price at time 0
+    X = None  # Exercise price
+    rate = None  # Risk-free rate, 0<= x <= 1
+    up = None  # Upwards probability, 0<= x <= 1
+    down = None  # Downwards probability, 0<= x <= 1
 
     # Factors
     u = 1 + up  # Upwards factor

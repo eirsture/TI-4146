@@ -66,26 +66,27 @@ if __name__ == '__main__':
     b_e = None  # Beta of equity
     b_d = None  # Beta of debt
 
-    r_a = 0.125  # Opportunity cost of capital = Return of assets
-    r_d = 0.08  # Return of debt
+    r_a = None  # Opportunity cost of capital = Return of assets
+    r_d = None  # Return of debt
     r_e = None  # Return og equity
     r_f = None  # Risk-free interest rate
 
-    debt = 24  # Value of debt
-    equity = 16  # Value of equity
-    #value = debt + equity  # Total value of assets
+    debt = None  # Value of debt
+    equity = None  # Value of equity
+    value = debt + equity  # Total value of assets
 
-    tax_rate = 0.3  # Corporate tax rate
+    tax_rate = None  # Corporate tax rate
 
-    # Is this needed, or is value = investment?
-    investment = 40  # Value of investment for project
-    cash_flow = 5  # Annual cash flow from project
+    investment = None  # Value of investment for project
+    cash_flow = None  # Annual cash flow from project
 
-
-    # r_a = calculate_occ(debt_return=r_d, equity_return=r_e, debt=debt, equity=equity, value=debt+equity)
+    # r_a = calculate_occ(debt_return=r_d, equity_return=r_e, debt=debt, equity=equity, value=value)
     # r_e = calculate_equity_return(occ, debt_return, debt, equity)
     # wacc = calculate_wacc(debt_return, equity_return, debt, equity, value, tax)
 
     unlevered_c_flow = unlevered_cash_flow(cash_flow=cash_flow, occ=r_a, tax_rate=tax_rate, tax_done=True)
-    apv = apv(npv(cash_flow=unlevered_c_flow, investment=40), tax_shield(debt=24, occ=r_a, interest_rate=0.08, tax_rate=0.3))
+    apv = apv(
+            npv(cash_flow=unlevered_c_flow, investment=investment),
+            tax_shield(debt=debt, occ=r_a, interest_rate=r_d, tax_rate=tax_rate, rebalanced_periodically=False)
+            )
 

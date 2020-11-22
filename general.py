@@ -13,8 +13,8 @@ def wacc(r_d, r_e, D, E, V, tax):
     return wacc
 
 if __name__ == '__main__':
-    r_f = 0.05  # Risk-free interest rate
-    r_m = 0.11  # Return of market
-    b_p = 0.8  # Beta of return you need calculated, e.g. asset
+    r_f = None  # Risk-free interest rate
+    r_m = None  # Return of market
+    b_p = None  # Beta of return you need calculated, e.g. asset
 
     capm(r_f, r_m, b_p)

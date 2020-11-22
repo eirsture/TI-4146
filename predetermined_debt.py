@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
     r_a = None  # Opportunity cost of capital = Return of assets
     r_d = None  # Return of debt
-    r_e = None  # Return og equity
+    r_e = None  # Return of equity
     r_f = None  # Risk-free interest rate
 
     debt = None  # Value of debt
@@ -83,8 +83,11 @@ if __name__ == '__main__':
     # b_e = calculate_beta_equity(debt, equity, tax_rate, b_a, b_d)
     # b_a = calculate_beta_assets(b_d, b_e, debt, equity, value, tax_rate)
 
-    unlevered_c_flow = unlevered_cash_flow(cash_flow=1562.5, occ=0.15, tax_rate=0.2, tax_done=False)
-    apv = apv(npv(cash_flow=unlevered_c_flow, investment=8000), tax_shield(debt=4000, interest_rate=0.1, tax_rate=0.2))
+    unlevered_c_flow = unlevered_cash_flow(cash_flow=cash_flow, occ=r_a, tax_rate=tax_rate, tax_done=False)
+    apv = apv(
+            npv(cash_flow=unlevered_c_flow, investment=investment),
+            tax_shield(debt=debt, interest_rate=r_d, tax_rate=tax_rate)
+            )
 
 
 

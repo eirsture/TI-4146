@@ -68,12 +68,12 @@ def call_option(exercise_price, interest_rate, time, stock_price, determinant1, 
 
 if __name__ == '__main__':
     #  Input values:
-    option_type = "call"  # "put" or "call"
-    S_0 = 100  # Stock price at time 0
-    X = 100  # Exercise price
-    sigma = 0.2  # Diffusion coefficient, representing the stock's volatility
-    r = 0.1  # Risk-free interest rate
-    T = 1  # Time
+    option_type = "put"  # "put" or "call"
+    S_0 = None  # Stock price at time 0
+    X = None  # Exercise price
+    sigma = None  # Diffusion coefficient, representing the stock's volatility
+    r = None  # Risk-free interest rate
+    T = None  # Time
 
     #  Calculate determinants
     d_1 = first_determinant(S_0, X, r, sigma, T)
