@@ -1,9 +1,12 @@
 def print_num(num):
     return format(num, ".4f")
 
-def calculate_occ(debt_return, equity_return, debt, equity, value):
+def calculate_occ(debt_return, equity_return, debt, equity, value, periodically=False):
     "Step 1: unlever, calculate occ from existing operations"
-    occ = debt_return*debt/value + equity_return*equity/value
+    if periodically:
+        return None
+    else:
+        occ = debt_return*debt/value + equity_return*equity/value
     print(f'occ = {print_num(occ)}')
     return occ
 
@@ -68,8 +71,9 @@ if __name__ == '__main__':
 
     r_a = None  # Opportunity cost of capital = Return of assets
     r_d = None  # Return of debt
-    r_e = None  # Return og equity
+    r_e = None  # Return of equity
     r_f = None  # Risk-free interest rate
+    r_m = None  # Return of market
 
     debt = None  # Value of debt
     equity = None  # Value of equity
@@ -80,13 +84,16 @@ if __name__ == '__main__':
     investment = None  # Value of investment for project
     cash_flow = None  # Annual cash flow from project
 
+    # Step 1 - Has to be calculated either way
     # r_a = calculate_occ(debt_return=r_d, equity_return=r_e, debt=debt, equity=equity, value=value)
+
+    # Method 1 - Step 2 & 3 following the WACC 'unlever' and 'relever' method - Requires continuous rebalancing
     # r_e = calculate_equity_return(occ, debt_return, debt, equity)
     # wacc = calculate_wacc(debt_return, equity_return, debt, equity, value, tax)
 
-    unlevered_c_flow = unlevered_cash_flow(cash_flow=cash_flow, occ=r_a, tax_rate=tax_rate, tax_done=True)
-    apv = apv(
-            npv(cash_flow=unlevered_c_flow, investment=investment),
-            tax_shield(debt=debt, occ=r_a, interest_rate=r_d, tax_rate=tax_rate, rebalanced_periodically=False)
-            )
+    # Method 2 - Step 2+++ following the APV - Adjusted Present Value method
+    # unlevered_c_flow = unlevered_cash_flow(cash_flow=cash_flow, occ=r_a, tax_rate=tax_rate, tax_done=True)
+    # npv = npv(cash_flow=unlevered_c_flow, investment=investment)
+    # tax_shield = tax_shield(debt=debt, occ=r_a, interest_rate=r_d, tax_rate=tax_rate, rebalanced_periodically=False)
+    # apv = apv(npv, tax_shield)
 
