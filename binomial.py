@@ -73,6 +73,9 @@ if __name__ == '__main__':
     r = 1 + rate  # Risk-free rate factor
     p = (r - d) / (u - d)  # Probability of upwards
 
+    print("O=\\frac{p \cdot O_{u}+(1-p) \cdot O_{d}}{r}")
+    print("O=\\frac{%s \cdot O_{u}+(1-%s) \cdot O_{d}}{%s}" % (p, p, r))
+
     binomial_tree = create_binomial_tree(periods, S_0, u, d)
     print_tree(binomial_tree)
     option_values = calculate_option_price(periods, binomial_tree, option_type, X, p, r)
