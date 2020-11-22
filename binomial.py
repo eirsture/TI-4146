@@ -15,13 +15,13 @@ def create_matrix(length) -> list:
     return matrix
 
 
-def create_binomial_tree(period, stock_price, upwards_factor, downwards_factor) -> list:
+def create_binomial_tree(period, stock_price, u, d) -> list:
     stock_values = create_matrix(period)
     stock_values[0][0] = stock_price
-    for i in range(1, periods + 1):
-        stock_values[i][0] = stock_values[i - 1][0] * upwards_factor
+    for i in range(1, period + 1):
+        stock_values[i][0] = stock_values[i - 1][0] * u
         for j in range(1, i + 1):
-            stock_values[i][j] = stock_values[i - 1][j - 1] * downwards_factor
+            stock_values[i][j] = stock_values[i - 1][j - 1] * d
 
     return stock_values
 
@@ -37,23 +37,23 @@ def final_node_price(period, stock_values, put_or_call, exercise_price) -> list:
     return option_values
 
 
-def calculate_option_price(period, stock_values, put_or_call, exercise_price, p_value, rate_factor) -> float:
-    option_values = final_node_price(period, stock_values, put_or_call, exercise_price)
+def calculate_option_price(periods, stock_values, put_or_call, exercise_price, p, r_f) -> float:
+    option_values = final_node_price(periods, stock_values, put_or_call, exercise_price)
 
-    for i in range(period - 1, -1, -1):
+    for i in range(periods - 1, -1, -1):
         for j in range(i + 1):
             if put_or_call == "put":
 
                 option_values[i][j] = max(0,
                                           exercise_price - stock_values[i][j],
-                                          (p_value * option_values[i + 1][j] + (1 - p_value) * option_values[i + 1][
-                                              j + 1]) / rate_factor)
+                                          (p * option_values[i + 1][j] + (1 - p) * option_values[i + 1][
+                                              j + 1]) / r_f)
 
             elif put_or_call == "call":
                 option_values[i][j] = max(0,
                                           stock_values[i][j] - exercise_price,
-                                          (p_value * option_values[i + 1][j] + (1 - p_value) * option_values[i + 1][
-                                              j + 1]) / rate_factor)
+                                          (p * option_values[i + 1][j] + (1 - p) * option_values[i + 1][
+                                              j + 1]) / r_f)
     return option_values
 
 
