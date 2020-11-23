@@ -13,16 +13,6 @@ T = Time
 N(d_2) = Probability of exercise
 """
 
-"""
-    option_type = None  # "put" or "call"
-    S_0 = None  # Stock price at time 0
-    X = None  # Exercise price
-    u = None  # Drift coefficient, representing the stock's return
-    sigma = None  # Diffusion coefficient, representing the stock's volatility
-    r = None  # Risk-free interest rate
-    T = None  # Time
-"""
-
 
 def first_determinant(stock_price, exercise_price, interest_rate, volatility, time) -> float:
     """
@@ -83,7 +73,7 @@ def call_option(exercise_price, interest_rate, time, stock_price, determinant1, 
 
 if __name__ == '__main__':
     #  Input values:
-    option_type = "call"  # "put" or "call"
+    option_type = None  # "put" or "call"
     S_0 = None  # Stock price at time 0
     X = None  # Exercise price
     sigma = None  # Diffusion coefficient, representing the stock's volatility

@@ -6,23 +6,28 @@ def calculate_occ(debt_return, equity_return, debt, equity, value, tax=None, per
     if periodically:
         print("Debt is periodically rebalanced")
         print("r_{a}=\\frac{r_{E}+r_{D} \cdot y}{1+y}")
-        print("Where y=\\frac{D}{E} \cdot\left(1-\\frac{T_{C} \cdot r_{D}}{1+r_{D}}\\right)")
-        print("Where y=\\frac{D}{E} \cdot\left(1-\\frac{T_{C} \cdot r_{D}}{1+r_{D}}\\right)")
-        y = debt/equity * (1 - (tax*debt_return/(1+debt_return)))
+        print("\\text{Where y}=\\frac{D}{E} \cdot \left(1-\\frac{T_{C} \cdot r_{D}}{1+r_{D}}\\right)")
+        print("y=\\frac{%s}{%s} \cdot \left(1-\\frac{%s \cdot %s}{1+%s}\\right)" % (debt, equity, tax, debt_return, debt_return))
+        y = format_float(debt/equity * (1 - (tax*debt_return/(1+debt_return))))
+        print(f'y = {y}')
+        print("r_{a}=\\frac{%s+%s \cdot %s}{1+%s}" % (equity_return, debt_return, y, y))
         occ = ((equity_return+debt_return*y)/(1+y))
     else:
         print("Debt is continuously rebalanced")
         print("r_{a}= r_{e} \cdot \\frac{E}{V} + r_{d} \cdot \\frac{D}{V}")
+        print("r_{a}= %s \cdot \\frac{%s}{%s} + %s \cdot \\frac{%s}{%s}" % (equity_return, equity, value, debt_return, debt, value))
         occ = debt_return*debt/value + equity_return*equity/value
     occ = format_float(occ)
     print('r_{a} = %s' % (occ))
     return occ
+
 
 def calculate_equity_return(occ, debt_return, debt, equity):
     "Step 2: Calcluate project's cost of equity, using project's debt and equity"
     r_e = format_float(occ + (occ-debt_return)*(debt/equity))
     print(f'r_e = {r_e}')
     return r_e
+
 
 def calculate_wacc(debt_return, equity_return, debt, equity, value, tax):
     "NOTE: THIS METHOD REQUIRES CONTINUOUS REBALANCING"
@@ -53,16 +58,16 @@ if __name__ == '__main__':
     investment = None  # Value of investment for project
     cash_flow = None  # Annual cash flow from project
 
-    # Step 1 - Has to be calculated either way
-    # r_a = calculate_occ(debt_return=r_d, equity_return=r_e, debt=debt, equity=equity, value=value)
+    # Step 1 - Has to be calculated either way, tax is only needed if periodically = True
+    # r_a = calculate_occ(debt_return=r_d, equity_return=r_e, debt=debt, equity=equity, value=value, tax=tax_rate, periodically=False)
 
     # Method 1 - Step 2 & 3 following the WACC 'unlever' and 'relever' method - Requires continuous rebalancing
     # r_e = calculate_equity_return(occ, debt_return, debt, equity)
     # wacc = calculate_wacc(debt_return, equity_return, debt, equity, value, tax)
 
     # Method 2 - Step 2+++ following the APV - Adjusted Present Value method
-    unlevered_c_flow = unlevered_cash_flow(cash_flow=cash_flow, occ=r_a, tax_rate=tax_rate, tax_done=True)
-    npv = npv(cash_flow=unlevered_c_flow, investment=investment)
-    tax_shield = tax_shield(debt=debt, occ=r_a, interest_rate=r_d, tax_rate=tax_rate, debt_type=debt_type)
-    apv = apv(npv, tax_shield)
+    # unlevered_c_flow = unlevered_cash_flow(cash_flow=cash_flow, occ=r_a, tax_rate=tax_rate, tax_done=True)
+    # npv = npv(cash_flow=unlevered_c_flow, investment=investment)
+    # tax_shield = tax_shield(debt=debt, occ=r_a, interest_rate=r_d, tax_rate=tax_rate, debt_type=debt_type)
+    # apv = apv(npv, tax_shield)
 
